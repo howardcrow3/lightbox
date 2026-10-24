@@ -1,6 +1,6 @@
 # Releasing Lightbox
 
-The release pipeline is [`.github/workflows/release.yml`](../.github/workflows/release.yml).
+The release pipeline is [`.github/workflows-disabled/release.yml`](../.github/workflows-disabled/release.yml).
 It runs on every push to the `release` branch. A maintainer can also dispatch it manually, with
 an optional version override such as `1.2.0-rc.1`; the release environment's branch restrictions
 still apply.
@@ -37,8 +37,8 @@ and the WASM web app. The platform scripts in [`packaging/`](../packaging/) writ
   of `packaging/linux/package.sh`).
 - Flatpak: a single-file `.flatpak` bundle for each architecture, repackaged from that
   architecture's Linux tarball (`packaging/linux/flatpak-bundle.sh` with
-  `packaging/linux/flatpak/ai.storyteller.lightbox.bundle.yml`; no Rust build). The from-source
-  manifest `ai.storyteller.lightbox.yml` is for Flathub; packaging-lint keeps their runtime and
+  `packaging/linux/flatpak/studio.turtlebox.lightbox.bundle.yml`; no Rust build). The from-source
+  manifest `studio.turtlebox.lightbox.yml` is for Flathub; packaging-lint keeps their runtime and
   `finish-args` identical.
 - FreeBSD: `lightbox-<version>-freebsd-x86_64.tar.gz`, a `/usr/local`-style tree built in a
   FreeBSD 14.3 VM (`packaging/freebsd/package.sh`, the same packages as `freebsd.yml`). Install

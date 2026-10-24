@@ -2,7 +2,7 @@
 <!-- AppStream metadata (software centres, Flathub). Template: package.sh and the Flatpak
      manifest substitute @VERSION@ and @DATE@ from Cargo.toml and the build date. -->
 <component type="desktop-application">
-  <id>ai.storyteller.lightbox</id>
+  <id>studio.turtlebox.lightbox</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT OR Apache-2.0</project_license>
   <name>Lightbox</name>
@@ -15,8 +15,8 @@
       Lightbox is a photo library and raw developer. Organise photos and develop raw files, non-destructively
     </p>
   </description>
-  <launchable type="desktop-id">ai.storyteller.lightbox.desktop</launchable>
-  <icon type="stock">ai.storyteller.lightbox</icon>
+  <launchable type="desktop-id">studio.turtlebox.lightbox.desktop</launchable>
+  <icon type="stock">studio.turtlebox.lightbox</icon>
   <!-- Only url types known to appstream 0.15 (Ubuntu 22.04, where CI validates): no vcs-browser. -->
   <url type="homepage">https://github.com/howardcrow3/lightbox</url>
   <url type="bugtracker">https://github.com/howardcrow3/lightbox/issues</url>

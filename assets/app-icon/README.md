@@ -31,11 +31,11 @@ placement. Licence: `LICENSE.txt` (MIT OR Apache-2.0, like the repo).
 | `lightbox-macos-512.png` | runtime window/Dock icon on macOS (embedded by `apps/lightbox/src/main.rs`) |
 | `lightbox.icns` | macOS bundle icon (`CFBundleIconFile`) |
 | `lightbox.ico` | Windows icon, 16-256 px, embedded in `lightbox.exe` by `apps/lightbox/build.rs` |
-| `hicolor/<n>x<n>/apps/ai.storyteller.lightbox.png` | Linux icon theme, 16-512 px; the 256 px one is also the runtime window icon on Windows and Linux |
-| `hicolor/scalable/apps/ai.storyteller.lightbox.svg` | Linux scalable icon |
+| `hicolor/<n>x<n>/apps/studio.turtlebox.lightbox.png` | Linux icon theme, 16-512 px; the 256 px one is also the runtime window icon on Windows and Linux |
+| `hicolor/scalable/apps/studio.turtlebox.lightbox.svg` | Linux scalable icon |
 
-The app id is `ai.storyteller.lightbox`: the Wayland app id, the `.desktop` file
-(`packaging/linux/ai.storyteller.lightbox.desktop`, `Icon=ai.storyteller.lightbox`) and the hicolor icon
+The app id is `studio.turtlebox.lightbox`: the Wayland app id, the `.desktop` file
+(`packaging/linux/studio.turtlebox.lightbox.desktop`, `Icon=studio.turtlebox.lightbox`) and the hicolor icon
 name. To install on Linux, copy `hicolor/` into `/usr/share/icons/hicolor/` (or `~/.local/share/icons/hicolor/`)
 and the `.desktop` file into `applications/`.
 

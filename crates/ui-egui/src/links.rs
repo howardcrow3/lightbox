@@ -1,13 +1,7 @@
-//! Community and project links (Help menu, About dialog, top-bar Discord button).
+//! Project links (Help menu, About dialog).
 
-/// The app's id in ArtCraft URLs.
+/// The app's id in its repository URL.
 pub const APP: &str = "lightbox";
-/// The ArtCraft community Discord.
-pub const DISCORD: &str = "https://discord.gg/artcraft";
-/// The ArtCraft website.
-pub const WEBSITE: &str = "https://getartcraft.com";
-/// This app's page on the ArtCraft website.
-pub const APP_PAGE: &str = "https://getartcraft.com/apps/lightbox";
 /// This app's source repository.
 pub const GITHUB: &str = "https://github.com/howardcrow3/lightbox";
 
@@ -17,10 +11,7 @@ pub const HELP: &str = "https://github.com/howardcrow3/lightbox/tree/main/docs";
 
 pub const LINKS: &[(&str, &str, &str)] = &[
     ("app.help", "Lightbox Help", HELP),
-    ("app.discord", "Join the ArtCraft Discord…", DISCORD),
-    ("app.website", "Lightbox Website", APP_PAGE),
     ("app.github", "Lightbox on GitHub", GITHUB),
-    ("app.artcraft", "ArtCraft Website", WEBSITE),
     ("app.feedback", "Send Feedback…", FEEDBACK),
 ];
 
@@ -50,7 +41,6 @@ mod tests {
             assert!(!label.is_empty());
             assert_eq!(url_of(id), Some(*url));
         }
-        assert!(APP_PAGE.ends_with(&format!("/apps/{APP}")));
-        assert!(GITHUB.ends_with(&format!("/storytold/{APP}")));
+        assert!(GITHUB.ends_with(&format!("/howardcrow3/{APP}")));
     }
 }

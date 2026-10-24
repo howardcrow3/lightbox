@@ -13,7 +13,7 @@
   <key>CFBundleExecutable</key>
   <string>Lightbox</string>
   <key>CFBundleIdentifier</key>
-  <string>ai.storyteller.lightbox</string>
+  <string>studio.turtlebox.lightbox</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundlePackageType</key>

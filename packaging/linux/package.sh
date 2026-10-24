@@ -20,7 +20,7 @@ set -euo pipefail
 # shellcheck source=../env.sh
 . "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
 HERE="$ROOT/packaging/linux"
-APP_ID=ai.storyteller.lightbox
+APP_ID=studio.turtlebox.lightbox
 
 SKIP_BUILD=0
 FORMATS="appimage deb rpm tar"
@@ -40,7 +40,7 @@ case "$ARCH" in
   aarch64 | arm64) ARCH=aarch64; DEB_ARCH=arm64 ;;
   *) echo "unsupported architecture $ARCH" >&2; exit 2 ;;
 esac
-export LIGHTBOX_MAINTAINER="${LIGHTBOX_MAINTAINER:-Lightbox maintainers <lightbox@storyteller.ai>}"
+export LIGHTBOX_MAINTAINER="${LIGHTBOX_MAINTAINER:-Lightbox maintainers <noreply@turtlebox.studio>}"
 BASENAME="lightbox-$VERSION-linux-$ARCH"
 
 echo "==> Lightbox $VERSION for Linux $ARCH ($FORMATS)"

@@ -4,15 +4,15 @@
 #
 #   curl -fsSLO https://raw.githubusercontent.com/flatpak/flatpak-builder-tools/master/cargo/flatpak-cargo-generator.py
 #   python3 flatpak-cargo-generator.py Cargo.lock -o packaging/linux/flatpak/cargo-sources.json
-#   flatpak-builder --user --install --force-clean build-flatpak packaging/linux/flatpak/ai.storyteller.lightbox.yml
-#   flatpak run ai.storyteller.lightbox
+#   flatpak-builder --user --install --force-clean build-flatpak packaging/linux/flatpak/studio.turtlebox.lightbox.yml
+#   flatpak run studio.turtlebox.lightbox
 #
 # For Flathub, replace the `dir` source with a `git` source pinned to a release tag and commit.
 #
-# ai.storyteller.lightbox.bundle.yml (same directory) builds the .flatpak attached to every
+# studio.turtlebox.lightbox.bundle.yml (same directory) builds the .flatpak attached to every
 # release from the prebuilt binaries. Keep runtime-version and finish-args identical in both
 # (packaging-lint checks this).
-id: ai.storyteller.lightbox
+id: studio.turtlebox.lightbox
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
@@ -35,7 +35,7 @@ finish-args:
   # Deliberately not granted: home/host filesystem access, and network. The network is only for
   # the optional SAM 3 model download (AI Object/Describe masks, docs/ai-masks.md); without it
   # that download fails with an error and everything else works. Users who want it run
-  # `flatpak override --user --share=network ai.storyteller.lightbox`.
+  # `flatpak override --user --share=network studio.turtlebox.lightbox`.
 build-options:
   append-path: /usr/lib/sdk/rust-stable/bin
 modules:
@@ -49,14 +49,14 @@ modules:
       - cargo --offline build --release --locked -p lightbox -p lightbox-cli
       - install -Dm755 target/release/lightbox /app/bin/lightbox
       - install -Dm755 target/release/lightbox-cli /app/bin/lightbox-cli
-      - install -Dm644 packaging/linux/ai.storyteller.lightbox.desktop /app/share/applications/ai.storyteller.lightbox.desktop
-      - install -Dm644 packaging/linux/ai.storyteller.lightbox.mime.xml /app/share/mime/packages/ai.storyteller.lightbox.xml
+      - install -Dm644 packaging/linux/studio.turtlebox.lightbox.desktop /app/share/applications/studio.turtlebox.lightbox.desktop
+      - install -Dm644 packaging/linux/studio.turtlebox.lightbox.mime.xml /app/share/mime/packages/studio.turtlebox.lightbox.xml
       - mkdir -p /app/share/icons && cp -R assets/app-icon/hicolor /app/share/icons/
       - >-
         version=$(awk '/^\[/{p=($0=="[workspace.package]");next} p&&$1=="version"{gsub(/[" ]/,"",$3);print $3;exit}' Cargo.toml);
         install -d /app/share/metainfo;
         sed -e "s/@VERSION@/$version/" -e "s/@DATE@/$(date -u +%Y-%m-%d)/"
-        packaging/linux/ai.storyteller.lightbox.metainfo.xml.in > /app/share/metainfo/ai.storyteller.lightbox.metainfo.xml
+        packaging/linux/studio.turtlebox.lightbox.metainfo.xml.in > /app/share/metainfo/studio.turtlebox.lightbox.metainfo.xml
     sources:
       - type: dir
         path: ../../..

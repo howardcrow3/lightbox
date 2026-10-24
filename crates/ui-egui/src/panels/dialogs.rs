@@ -1291,22 +1291,7 @@ pub fn show(app: &mut LightboxApp, ctx: &egui::Context) {
                                 crate::theme::font_credits(app.chinese_font.is_some())
                             ));
                             ui.add_space(10.0);
-                            let r = crate::button::Button::new("Join the ArtCraft Discord")
-                                .primary()
-                                .large()
-                                .min_width(260.0)
-                                .widget("button:aboutDiscord")
-                                .tooltip(crate::links::DISCORD)
-                                .show(ui);
-                            if r.clicked() {
-                                let _ = crate::links::open(app, crate::links::DISCORD);
-                            }
-                            ui.add_space(6.0);
-                            for (label, url) in [
-                                ("Lightbox website", crate::links::APP_PAGE),
-                                ("Source code on GitHub", crate::links::GITHUB),
-                                ("ArtCraft — more creative apps", crate::links::WEBSITE),
-                            ] {
+                            for (label, url) in [("Source code on GitHub", crate::links::GITHUB)] {
                                 let r = ui.link(crate::i18n::tr(label)).on_hover_text(url);
                                 if r.clicked() {
                                     let _ = crate::links::open(app, url);

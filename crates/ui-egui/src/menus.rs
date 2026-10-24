@@ -259,11 +259,8 @@ pub const UI_COMMANDS: &[UiCommand] = &[
     ("app.whatsNew", "What's New", None, "Help"),
     ("dialog.cull", "Assisted Culling…", None, "Photo"),
     ("app.help", "Lightbox Help", Some("F1"), "Help"),
-    ("app.discord", "Join the ArtCraft Discord…", None, "Help"),
     ("app.feedback", "Send Feedback…", None, "Help"),
-    ("app.website", "Lightbox Website", None, "Help"),
     ("app.github", "Lightbox on GitHub", None, "Help"),
-    ("app.artcraft", "ArtCraft Website", None, "Help"),
     ("app.shortcuts", "Keyboard Shortcuts", Some("Cmd+/"), "Help"),
     ("app.setShortcut", "Set Keyboard Shortcut", None, ""),
     ("app.resetShortcuts", "Reset All Keyboard Shortcuts", None, ""),
@@ -2188,8 +2185,8 @@ pub fn run_ui_command(app: &mut LightboxApp, id: &str, p: &Value) -> Option<Resu
         "app.showInFinder" => show_in_finder(app),
         "app.showInFolders" => show_in_folders(app, p.get("id").and_then(Value::as_u64).map(lightbox_catalog::PhotoId)),
         "app.openLogFolder" => open_log_folder(app),
-        "app.discord" | "app.website" | "app.github" | "app.artcraft" | "app.help" | "app.feedback" => {
-            let url = crate::links::url_of(id).unwrap_or(crate::links::WEBSITE);
+        "app.github" | "app.help" | "app.feedback" => {
+            let url = crate::links::url_of(id).unwrap_or(crate::links::GITHUB);
             crate::links::open(app, url)
         }
         "app.exportPrevious" => match app.session.last_export.clone() {

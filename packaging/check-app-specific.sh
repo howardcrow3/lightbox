@@ -13,10 +13,10 @@ grep -qF '<DialogRef Id="ExitDialog" />' packaging/windows/lightbox.wxs \
 python3 - <<'PYEOF'
 import yaml
 manifests = []
-for name in ("ai.storyteller.lightbox.yml", "ai.storyteller.lightbox.bundle.yml"):
+for name in ("studio.turtlebox.lightbox.yml", "studio.turtlebox.lightbox.bundle.yml"):
     with open("packaging/linux/flatpak/" + name) as source:
         manifest = yaml.safe_load(source)
-    assert manifest["id"] == "ai.storyteller.lightbox" and manifest["command"] == "lightbox", name
+    assert manifest["id"] == "studio.turtlebox.lightbox" and manifest["command"] == "lightbox", name
     manifests.append(manifest)
 for key in ("runtime", "runtime-version", "sdk", "finish-args"):
     assert manifests[0][key] == manifests[1][key], f"Flatpak manifests disagree on {key}"
@@ -33,7 +33,7 @@ import plistlib
 with open("packaging/macos/Info.plist.in", "rb") as source:
     plist = plistlib.load(source)
 for key, value in {
-    "CFBundleIdentifier": "ai.storyteller.lightbox",
+    "CFBundleIdentifier": "studio.turtlebox.lightbox",
     "CFBundleExecutable": "Lightbox",
     "CFBundleIconFile": "Lightbox",
     "LSMinimumSystemVersion": "11.0",
@@ -53,8 +53,8 @@ unsupported = {name.lower() for name in declared} & {
     "psb",
     "qoi",
     "application/x-lightbox",
-    "ai.storyteller.lightbox.document",
-    "ai.storyteller.lightbox.qoi",
+    "studio.turtlebox.lightbox.document",
+    "studio.turtlebox.lightbox.qoi",
     "com.adobe.photoshop-large-image",
 }
 assert not unsupported, f"Info.plist declares types Lightbox cannot open: {sorted(unsupported)}"

@@ -1,7 +1,8 @@
 name: CI
 
-# Quality gates for every push to main and every pull request (`cargo xtask ci`), through the
-# suite's shared gate workflow in craft-common-actions.
+# Basic quality gates for pushes to main and pull requests. The upstream project's shared
+# workflows (release, packaging, FreeBSD, Nix, SonarCloud) are parked in .github/workflows-disabled/
+# because they call reusable workflows from another organization.
 on:
   push:
     branches: [main]
@@ -11,22 +12,26 @@ on:
 permissions:
   contents: read
 
-# A newer push to a PR branch cancels its older run; every push to main runs to the end.
 concurrency:
   group: ci-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  gate:
-    # Tracks @main so suite-wide CI fixes reach every app without a PR in each repository.
-    uses: storytold/craft-common-actions/.github/workflows/gate.yml@main
-    with:
-      # Same craft-fonts commit as release.yml.
-      craft-fonts-ref: a71c20e30af613287c504f7e685ca8fad77752bc
-      timeout-minutes: 90
-      # xtask ci runs cargo test: the demo scene cache is per process, so nextest is slower here.
-      tools: ""
-      packages: >-
-        pkg-config libxkbcommon-dev libwayland-dev libx11-dev libxcb1-dev libxcursor-dev
-        libxrandr-dev libxi-dev libfontconfig1-dev libfreetype-dev mesa-vulkan-drivers
-        libgl1-mesa-dev libdbus-1-dev
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: System packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pkg-config libxkbcommon-dev libwayland-dev libx11-dev libxcb1-dev \
+            libxcursor-dev libxrandr-dev libxi-dev libfontconfig1-dev libfreetype-dev \
+            mesa-vulkan-drivers libgl1-mesa-dev libdbus-1-dev
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - run: cargo test --workspace --locked

@@ -14,10 +14,10 @@
 use super::{nefc, white_from_data};
 use crate::tiffraw::{Packing, check_image, read_image};
 use crate::{BlackLevel, Cfa, ColorData, Mode, OpcodeLists, RawData, RawError, RawFormat, RawImage, Rect, Result};
-use lightcraft_geom::Orientation;
-use lightcraft_tiff::image::ImageInfo;
-use lightcraft_tiff::tags::{self as t, photometric};
-use lightcraft_tiff::{ByteOrder, Ifd, Tiff, makernote};
+use lightbox_geom::Orientation;
+use lightbox_tiff::image::ImageInfo;
+use lightbox_tiff::tags::{self as t, photometric};
+use lightbox_tiff::{ByteOrder, Ifd, Tiff, makernote};
 
 const WB_RB_LEVELS: u16 = 0x000c;
 const BLACK_LEVEL: u16 = 0x003d;
@@ -282,7 +282,7 @@ pub(crate) fn decode(bytes: &[u8], mode: Mode) -> Result<RawImage> {
         _ => default_crop(mn.as_ref(), active_w, h),
     };
     let pixel_aspect = pixel_aspect_of(raw);
-    let mut metadata = lightcraft_meta::from_tiff(&tiff);
+    let mut metadata = lightbox_meta::from_tiff(&tiff);
     metadata.width = Some(crop.width as u32);
     metadata.height = Some(crate::stretched_height(crop.height, pixel_aspect) as u32);
     let img = RawImage {
@@ -503,7 +503,7 @@ fn packed(bytes: &[u8], info: &ImageInfo, rows: usize) -> Result<RawData> {
             "Nikon compressed NEF without a linearization table (maker note 0x96)".into()
         }));
     };
-    let src = lightcraft_tiff::image::chunk_bytes(bytes, c)
+    let src = lightbox_tiff::image::chunk_bytes(bytes, c)
         .filter(|src| u64::try_from(src.len()).ok() == Some(c.len))
         .ok_or_else(|| RawError::Corrupt("NEF: incomplete image strip".into()))?;
     if (w as u64).saturating_mul(h as u64) > crate::MAX_SAMPLES as u64 {
@@ -515,7 +515,7 @@ fn packed(bytes: &[u8], info: &ImageInfo, rows: usize) -> Result<RawData> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use lightcraft_tiff::{ByteOrder, IfdBuilder, ImageData, TiffWriter, Value};
+    use lightbox_tiff::{ByteOrder, IfdBuilder, ImageData, TiffWriter, Value};
 
     fn nef(compression: u16, bits: u16, strips: Vec<Vec<u8>>, w: u32, h: u32, rps: u32) -> Vec<u8> {
         nef_with_note(compression, bits, strips, w, h, rps, None)
@@ -1168,7 +1168,7 @@ mod tests {
         let raw = raw_ifd(&tiff).unwrap();
         let info = raw.image().unwrap();
         let chunk = info.chunks(bytes.len() as u64)[0];
-        let data = lightcraft_tiff::image::chunk_bytes(&bytes, &chunk).unwrap().to_vec();
+        let data = lightbox_tiff::image::chunk_bytes(&bytes, &chunk).unwrap().to_vec();
         let offset_entry = raw.get(t::STRIP_OFFSETS).unwrap().offset as usize;
         let start = bytes.len() as u32;
         bytes[offset_entry..offset_entry + 4].copy_from_slice(&start.to_be_bytes());

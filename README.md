@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/app-icon/hicolor/256x256/apps/ai.storyteller.lightbox.png" width="128" height="128" alt="Lightbox icon: a smiling turtle on a dark tile">
+  <img src="assets/app-icon/hicolor/256x256/apps/studio.turtlebox.lightbox.png" width="128" height="128" alt="Lightbox icon: a smiling turtle on a dark tile">
 </p>
 
 <h1 align="center">Lightbox</h1>

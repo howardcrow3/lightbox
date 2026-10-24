@@ -3,7 +3,7 @@
 #
 #   nix build          # → ./result/bin/lightbox, ./result/bin/lightbox-cli
 #
-# Kept in step with the release workflow (.github/workflows/release.yml) and packaging/env.sh:
+# Kept in step with the release workflow (.github/workflows-disabled/release.yml) and packaging/env.sh:
 #   * `Cargo.lock` drives the dependencies (`cargoLock`), so there is no vendorHash to bump. The git
 #     source (storytold/craft-libs) is fetched at the revision the lock file pins;
 #   * `CRAFT_FONTS_DIR` embeds the CJK fonts from storytold/craft-fonts (the `craft-fonts`
@@ -56,7 +56,7 @@ let
   isLinux = stdenv.hostPlatform.isLinux;
 
   # AppStream id: also the desktop file name, and the icon name in share/icons/hicolor.
-  appId = "ai.storyteller.lightbox";
+  appId = "studio.turtlebox.lightbox";
 
   # Libraries the binaries open at run time with dlopen(): nothing links them, so no RPATH points at
   # them — winit loads libwayland-client/libxkbcommon/libxcb, rfd libdbus-1, wgpu the Vulkan loader
