@@ -1,0 +1,16 @@
+[package]
+name = "lightbox-mcp"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Lightbox MCP server (L5): JSON-RPC 2.0 over stdio, driving a running app or a headless session"
+
+[lints]
+workspace = true
+
+[dependencies]
+lightbox-engine = { workspace = true }
+lightbox-codecs = { workspace = true }
+lightbox-raster = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }

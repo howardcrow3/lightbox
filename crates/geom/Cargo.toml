@@ -1,0 +1,15 @@
+[package]
+name = "lightbox-geom"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Lightbox geom (L0)"
+
+[lints]
+workspace = true
+
+[dependencies]
+serde = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

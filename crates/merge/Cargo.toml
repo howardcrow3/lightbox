@@ -1,0 +1,21 @@
+[package]
+name = "lightbox-merge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Lightbox Photo Merge: HDR merge (align, deghost) and panorama stitching (L3)"
+
+[lints]
+workspace = true
+
+[dependencies]
+lightbox-geom = { workspace = true }
+lightbox-color = { workspace = true }
+lightbox-raster = { workspace = true }
+lightbox-raw = { workspace = true }
+lightbox-codecs = { workspace = true }
+lightbox-meta = { workspace = true }
+lightbox-scenes = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+rayon = { workspace = true }

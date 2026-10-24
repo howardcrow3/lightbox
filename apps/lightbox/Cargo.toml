@@ -1,0 +1,55 @@
+[package]
+name = "lightbox"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+default-run = "lightbox"
+
+[lints]
+workspace = true
+
+[features]
+default = ["denoise"]
+denoise = ["lightbox-engine/denoise"]
+rawnind-model = ["denoise", "lightbox-engine/rawnind-model"]
+# Open HEIC/HEIF photos (the optional lightbox-heif crate). Not default so distributors choose
+# it (HEVC patents); build with `--features heif` to include it.
+heif = ["lightbox-codecs/heif"]
+
+[dependencies]
+lightbox-engine = { workspace = true, features = ["sam"] }
+lightbox-sysmem = { workspace = true }
+lightbox-ui-egui = { workspace = true }
+lightbox-codecs = { workspace = true }
+lightbox-raster = { workspace = true }
+eframe = { workspace = true, features = ["default_fonts", "wgpu", "glow", "accesskit", "wayland", "x11"] }
+egui = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+# probing the window's renderer before it opens (`window_gpu`)
+pollster = { workspace = true }
+log = { workspace = true }
+
+[build-dependencies]
+# Icon + VERSIONINFO for lightbox.exe; build.rs only uses it when targeting Windows.
+winresource = "0.1"
+
+[target.'cfg(all(unix, not(target_os = "macos")))'.dependencies]
+winit = { version = "0.30", default-features = false, features = ["x11"] }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+rfd = { workspace = true }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+zbus = { workspace = true }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+muda = { workspace = true }
+objc2 = { workspace = true }
+objc2-app-kit = { workspace = true }
+objc2-foundation = { workspace = true }
+
+[dev-dependencies]
+# tests record why they skip (`cargo xtask ci` lists the skips)
+lightbox-testkit = { workspace = true }

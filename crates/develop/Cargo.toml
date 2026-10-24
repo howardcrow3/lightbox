@@ -1,0 +1,19 @@
+[package]
+name = "lightbox-develop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Lightbox develop settings: the non-destructive edit model, control specs, presets (L1)"
+
+[lints]
+workspace = true
+
+[dependencies]
+lightbox-geom = { workspace = true }
+lightbox-color = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+miniz_oxide = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

@@ -1,0 +1,11 @@
+kind = "app"
+categories = ["Graphics", "Photography"]
+icon = "assets/app-icon/hicolor/256x256/apps/ai.storyteller.lightbox.png"
+
+[linux.x86_64]
+asset = "lightbox-{version}-linux-x86_64.tar.gz"
+exec = "lightbox-{version}-linux-x86_64/bin/lightbox"
+
+[linux.aarch64]
+asset = "lightbox-{version}-linux-aarch64.tar.gz"
+exec = "lightbox-{version}-linux-aarch64/bin/lightbox"

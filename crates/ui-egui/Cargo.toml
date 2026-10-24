@@ -1,0 +1,41 @@
+[package]
+name = "lightbox-ui-egui"
+version.workspace = true
+edition.workspace = true
+rust-version = "1.95"
+license.workspace = true
+description = "Lightbox egui frontend (Lightroom-style UI); swappable — nothing below depends on it (L5)"
+
+[lints]
+workspace = true
+
+[dependencies]
+craft-ui = { workspace = true }
+lightbox-geom = { workspace = true }
+lightbox-meta = { workspace = true }
+lightbox-color = { workspace = true }
+lightbox-raster = { workspace = true }
+lightbox-develop = { workspace = true }
+lightbox-pipeline = { workspace = true }
+lightbox-catalog = { workspace = true }
+web-time = { workspace = true }
+lightbox-engine = { workspace = true }
+lightbox-slideshow = { workspace = true }
+lightbox-preview = { workspace = true }
+egui = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+# tests record why they skip (`cargo xtask ci` lists the skips)
+lightbox-testkit = { workspace = true }
+egui_kittest = { workspace = true, features = ["wgpu", "snapshot"] }
+lightbox-denoise = { workspace = true, features = ["runtime"] }
+lightbox-codecs = { workspace = true }
+lightbox-faces = { workspace = true }
+lightbox-merge = { workspace = true }
+
+[build-dependencies]
+serde_json = { workspace = true }
+toml = "1"

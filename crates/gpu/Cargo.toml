@@ -1,0 +1,36 @@
+[package]
+name = "lightbox-gpu"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Lightbox GPU develop pipeline: wgpu compute (WGSL) twin of the CPU pipeline, which stays the reference (L3)"
+
+[lints]
+workspace = true
+
+[dependencies]
+lightbox-denoise = { workspace = true, optional = true }
+lightbox-geom = { workspace = true }
+lightbox-color = { workspace = true }
+lightbox-raster = { workspace = true }
+lightbox-develop = { workspace = true }
+lightbox-faces = { workspace = true }
+lightbox-pipeline = { workspace = true }
+log = { workspace = true }
+
+# Native only: Metal / Vulkan / DX12 through wgpu (pure Rust; the drivers are the system's).
+# The browser build keeps the CPU pipeline (WebGPU needs async device creation: see docs/gpu-pipeline.md).
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+wgpu = { workspace = true }
+pollster = { workspace = true }
+bytemuck = { workspace = true }
+
+[features]
+default = []
+denoise = ["dep:lightbox-denoise", "lightbox-denoise/runtime"]
+
+[dev-dependencies]
+# tests record why they skip (`cargo xtask ci` lists the skips)
+lightbox-testkit = { workspace = true }
+lightbox-scenes = { workspace = true }
+lightbox-raw = { workspace = true }

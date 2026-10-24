@@ -1,0 +1,66 @@
+[package]
+name = "lightbox-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Lightbox engine: session, command registry, history, render jobs, view-models (L4)"
+
+[lints]
+workspace = true
+
+[dependencies]
+# Paths stored in a Lightroom catalog are followed only to local files or the catalog's share.
+craft-docpath = { workspace = true }
+lightbox-geom = { workspace = true }
+lightbox-color = { workspace = true }
+lightbox-raster = { workspace = true }
+lightbox-develop = { workspace = true }
+lightbox-scenes = { workspace = true }
+lightbox-pipeline = { workspace = true }
+lightbox-gpu = { workspace = true }
+lightbox-catalog = { workspace = true }
+web-time = { workspace = true }
+lightbox-preview = { workspace = true }
+lightbox-codecs = { workspace = true }
+lightbox-raw = { workspace = true }
+lightbox-denoise-core = { workspace = true }
+lightbox-denoise = { workspace = true, optional = true }
+lightbox-meta = { workspace = true }
+lightbox-lensdb = { workspace = true }
+lightbox-faces = { workspace = true }
+miniz_oxide = { workspace = true }
+lightbox-merge = { workspace = true }
+lightbox-geocode = { workspace = true }
+lightbox-slideshow = { workspace = true }
+rayon = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+ab_glyph = { workspace = true }
+# Apply the font’s vertical substitutions and origins to Japanese watermarks.
+harfrust = { version = "0.12", default-features = false, features = ["std"] }
+unicode-segmentation = "1.13"
+lightbox-segment = { workspace = true, optional = true }
+
+# model downloads run natively only (the web build fetches no models)
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+lightbox-fetch = { workspace = true }
+# capture-time parsing for face recognition (native only)
+chrono = { workspace = true }
+
+[features]
+# AI masks with SAM 3 (Object / Describe). Off for the web and CLI builds.
+sam = ["dep:lightbox-segment"]
+denoise = ["dep:lightbox-denoise", "lightbox-denoise/runtime", "lightbox-gpu/denoise"]
+rawnind-model = ["denoise", "lightbox-denoise/rawnind-model", "lightbox-denoise-core/rawnind-model"]
+
+[dev-dependencies]
+# tests record why they skip (`cargo xtask ci` lists the skips)
+lightbox-testkit = { workspace = true }
+# HDR JPEG XL tests read the file's colour encoding
+jxl-oxide = { workspace = true }
+# Lossless synthetic HEIC files (the import test; decoded when the codecs' `heif` feature is on).
+lightbox-heif = { workspace = true, features = ["testdata"] }
+libc = { workspace = true }
+lightbox-tiff = { workspace = true }

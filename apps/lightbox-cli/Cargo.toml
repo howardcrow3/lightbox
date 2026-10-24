@@ -1,0 +1,39 @@
+[package]
+name = "lightbox-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+description = "Lightbox command-line tool: headless render, command listing and the MCP server"
+
+[[bin]]
+name = "lightbox-cli"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+lightbox-engine = { workspace = true }
+lightbox-denoise = { workspace = true }
+lightbox-sysmem = { workspace = true }
+lightbox-mcp = { workspace = true }
+lightbox-ui-egui = { workspace = true }
+lightbox-codecs = { workspace = true }
+lightbox-raster = { workspace = true }
+lightbox-merge = { workspace = true }
+serde_json = { workspace = true }
+dhat = { workspace = true, optional = true }
+
+[features]
+default = ["denoise"]
+denoise = ["lightbox-engine/denoise"]
+rawnind-model = ["denoise", "lightbox-engine/rawnind-model"]
+# Heap profiling: `cargo run --release -p lightbox-cli --features dhat-heap -- snapshot …` counts
+# every allocation (live/peak bytes in `library.memory` / `ui.inspect`) and writes dhat-heap.json
+# (open it in DHAT's viewer: allocation sites by bytes at the peak). Slows allocation-heavy work.
+dhat-heap = ["dep:dhat"]
+
+# Open HEIC/HEIF photos (the optional lightbox-heif crate). Not default so distributors choose
+# it (HEVC patents); build with `--features heif` to include it.
+heif = ["lightbox-codecs/heif"]
